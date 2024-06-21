@@ -110,12 +110,16 @@
                                     <td class="py-3">휴대폰 번호</td>
 		                            <td class="py-3">
 		                                <input type="hidden" name="phone" value=""/>
+		                                <!-- 기존 번호 있으면 입력되어 있게 -->
 		                                <input type="text" name="phone1" required maxlength="3"
-		                                	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> -
+		                                	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+		                                	<c:if test="${not empty list.phone}"> value ="${list.phone.split('-')[0]}" </c:if> > -
 		                                <input type="text" name="phone2" required maxlength="4"
-		                                	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> -
+		                                	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+		                                	<c:if test="${not empty list.phone}"> value ="${list.phone.split('-')[1]}" </c:if>> -
 		                                <input type="text" name="phone3" required maxlength="4"
-		                                	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+		                                	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+		                                	<c:if test="${not empty list.phone}"> value ="${list.phone.split('-')[2]}" </c:if>>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -123,37 +127,52 @@
                                     <td class="py-3">
                                         <input type="hidden" name="birth" value=""/>
                                         <select name="birth1" class="form-control">
-                                        <option value="">년</option>
-                                        <c:forEach var="i" begin="1900" end="2023">
-                                            <option value="${i}">${i}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <select name="birth2" class="form-control">
-                                        <option value="">월</option>
-                                        <c:forEach var="i" begin="1" end="12">
-                                            <c:choose>
-                                                <c:when test="${i lt 10 }">
-                                                <option value="0${i}">0${i}</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                <option value="${i}">${i}</option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </select>
-                                    <select name="birth3" class="form-control">
-                                        <option value="">일</option>
-                                            <c:forEach var="i" begin="1" end="31">
-                                                <c:choose>
-                                                <c:when test="${i lt 10 }">
-                                                    <option value="0${i}">0${i}</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${i}">${i}</option>
-                                                </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                    </select>
+	                                        <option value="">년</option>
+	                                        <c:forEach var="i" begin="1900" end="2023">
+	                                            <option value="${i}"
+	                                            	<c:if test="${list.birth.split('/')[0] eq i}"> selected="" </c:if>>
+	                                            	${i}
+	                                            </option>
+	                                        </c:forEach>
+	                                    </select>
+	                                    <select name="birth2" class="form-control">
+	                                        <option value="">월</option>
+	                                        <c:forEach var="i" begin="1" end="12">
+	                                            <c:choose>
+	                                                <c:when test="${i lt 10 }">
+	                                                	<option value="0${i}"
+	                                                		<c:if test="${list.birth.split('/')[1] eq i}"> selected="" </c:if>>
+	                                                		0${i}
+	                                                	</option>
+	                                                </c:when>
+	                                                <c:otherwise>
+	                                                	<option value="${i}"
+	                                                		<c:if test="${list.birth.split('/')[2] eq i}"> selected="" </c:if>>
+	                                                		${i}
+	                                                	</option>
+	                                                </c:otherwise>
+	                                            </c:choose>
+	                                        </c:forEach>
+	                                    </select>
+	                                    <select name="birth3" class="form-control">
+	                                        <option value="">일</option>
+	                                            <c:forEach var="i" begin="1" end="31">
+	                                                <c:choose>
+	                                                <c:when test="${i lt 10 }">
+	                                                    <option value="0${i}"
+	                                                    	<c:if test="${list.birth.split('/')[2] eq i}"> selected="" </c:if>>
+	                                                    	0${i}
+	                                                    </option>
+	                                                </c:when>
+	                                                <c:otherwise>
+	                                                    <option value="${i}"
+	                                                    	<c:if test="${list.birth.split('/')[2] eq i}"> selected="" </c:if>>
+	                                                    	${i}
+	                                                    </option>
+	                                                </c:otherwise>
+	                                                </c:choose>
+	                                            </c:forEach>
+	                                    </select>
                                     </td>
                                 </tr>
                             </table>

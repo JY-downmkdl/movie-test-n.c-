@@ -76,7 +76,7 @@
 	                        <div class="sect-base-booking">
 	                            <div class="box-polaroid">
 	                                <div class="box-inner">
-	                                	 
+	                                	 <!-- 예매 내역 나타내기 -->
 			                                <c:choose>
 			                                	<c:when test="${not empty rvlist}">
 			                                		<div class="items-item" style="display: block;">

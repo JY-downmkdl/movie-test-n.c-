@@ -90,6 +90,8 @@
         	//revealthloc(thcode, thname, thaddress);
         	
         })
+        
+        // 지역에 있는 영화관 찾아오기
        	function Theatername(location){
         	//지역명 받아오기
        		//alert($(location).siblings('input[name=thaddress]').val());

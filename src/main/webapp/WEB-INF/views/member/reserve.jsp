@@ -154,38 +154,41 @@
 			                                </div>
 											<script>
 												function CancelReservation(html) {
-													const userid = $("input[name=userid]").val();
-													const rvcode = $(html).closest(".lst-item").find(".box-number strong").html();
-													
-													const rvmovcode = $(html).closest(".lst-item").find("input[name=movcode]").val();
-													const rvthcode = $(html).closest(".lst-item").find("input[name=thcode]").val();
-													
-													const rvschall = $(html).closest(".lst-item").find(".myrvschall").html();
-													const rvschtime = $(html).closest(".lst-item").find(".myrvschtime").html().substring(0,10);
-													const rvschseats = $(html).closest(".lst-item").find(".myrvschseats").html();
-													
-													//alert(rvmovcode+"/"+rvthcode+"/"+rvschtime+"/"+rvschseats);
-													
-													$.ajax({
-	                                    				url: '/member/cancel',
-	                                    				data: {rvcode: rvcode, rvmovcode:rvmovcode, rvthcode:rvthcode,
-	                                    					rvschall:rvschall, rvschtime:rvschtime, rvschseats:rvschseats},
-	                                    				type: 'GET',
-	                                    				dataType: 'json',
-	                                    				success: function(result){
-	                                    					//alert("결과좀 알려줄래" + result)
-	                                    					if(result == 1){
-		                                    					//console.log("영화 클릭 ajax 결과 : " +result);
-		                                    					location.reload();
-	                                    					}
-	                                    					else{
-	                                    						alert("잠시후 다시 시도해주세요");
-	                                    					}
-	                                    				},
-	                                    				error : function(){
-	                                    					alert("서버요청실패");
-	                                    				}
-													})
+													if(confirm("예매 취소 하시겠습니까?")){
+														const userid = $("input[name=userid]").val();
+														const rvcode = $(html).closest(".lst-item").find(".box-number strong").html();
+														
+														const rvmovcode = $(html).closest(".lst-item").find("input[name=movcode]").val();
+														const rvthcode = $(html).closest(".lst-item").find("input[name=thcode]").val();
+														
+														const rvschall = $(html).closest(".lst-item").find(".myrvschall").html();
+														const rvschtime = $(html).closest(".lst-item").find(".myrvschtime").html().substring(0,10);
+														const rvschseats = $(html).closest(".lst-item").find(".myrvschseats").html();
+														
+														//alert(rvmovcode+"/"+rvthcode+"/"+rvschtime+"/"+rvschseats);
+														
+														$.ajax({
+		                                    				url: '/member/cancel',
+		                                    				data: {rvcode: rvcode, rvmovcode:rvmovcode, rvthcode:rvthcode,
+		                                    					rvschall:rvschall, rvschtime:rvschtime, rvschseats:rvschseats},
+		                                    				type: 'GET',
+		                                    				dataType: 'json',
+		                                    				success: function(result){
+		                                    					//alert("결과좀 알려줄래" + result)
+		                                    					if(result == 1){
+			                                    					//console.log("영화 클릭 ajax 결과 : " +result);
+			                                    					alert("취소 되었습니다");
+			                                    					location.reload();
+		                                    					}
+		                                    					else{
+		                                    						alert("잠시후 다시 시도해주세요");
+		                                    					}
+		                                    				},
+		                                    				error : function(){
+		                                    					alert("서버요청실패");
+		                                    				}
+														})
+													}
 												}
 											</script>
 			                            </div>
@@ -221,7 +224,29 @@
 	                             </tr>
 	                         </thead>
 	                         <tbody>
-	                             <tr><td colspan="5" class="nodata">고객님의 최근 취소내역이 존재하지 않습니다.</td></tr>
+	                         <!-- 
+	                         	<c:choose>
+                                	<c:when test="${not empty rvlist}">
+                               			<c:forEach items="${rvlist}" var="rv">
+	                                		<tr>
+	                                            <td>${rv.rvmovname}</td>
+	                                            <td>${rv.rvthname}/ ${rv.rvschall}</td>
+	                                            <td>${rv.rvrunning}</td>
+	                                            <td>${rv.rvschseats}</td>
+	                                            <td>${rv.rvcode}</td>
+		                                    </tr>
+                               			</c:forEach>
+                                	</c:when>
+                                	<c:otherwise>
+			                             <tr>
+			                             	<td colspan="5" class="nodata">고객님의 최근 취소내역이 존재하지 않습니다.</td>
+			                             </tr>
+                                	</c:otherwise>
+                                </c:choose>
+                                 -->
+	                             <tr>
+	                             	<td colspan="5" class="nodata">고객님의 최근 취소내역이 존재하지 않습니다.</td>
+	                             </tr>
 	                         </tbody>
 	                     </table>
 	                 </div>

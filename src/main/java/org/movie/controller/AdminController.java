@@ -42,21 +42,26 @@ public class AdminController {
 	@Setter(onMethod_ = {@Autowired})
 	private SchedulesService schservice;
 	
+	//영화 정보
 	@GetMapping("/moviechart")
 	public String goChart(Model model) {
 		model.addAttribute("list", movservice.getadList());
 		return "/movies/moviechart";
 	}
 	
+	//영화 등록 창으로 이동
 	@GetMapping("/register_movie")
 	public void goRegister() {
 		log.info("영화 등록하기");
 	}
 	
+	//영화 수정 창으로 이동
 	@GetMapping("/modify_movie")
 	public void goModify(int movcode, Model model) {
 		model.addAttribute("board", movservice.get(movcode));
 	}
+	
+	//영화 수정하기
 	@PostMapping("/modify_movie")
 	public String postmodify(MovieDTO mto) {
 		log.info("수정하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -68,6 +73,7 @@ public class AdminController {
 		return "redirect:/admin/moviechart";
 	}
 	
+	//영화 등록하기
 	@PostMapping("/register_movie")
 	public String postregister(MovieDTO mto,RedirectAttributes rttr){
 		log.info("=============================================");
@@ -79,7 +85,7 @@ public class AdminController {
 		return "redirect:/admin/moviechart";
 	}
 	
-	
+	// 상영 중지/ 재상영
 	@GetMapping("/thstateON")
 	public String setThstateON(@RequestParam("movcode")String movcode) {
 		log.info("상태 상영중으로 전환");
@@ -108,7 +114,6 @@ public class AdminController {
 	@ResponseBody
 	@PostMapping("/cancel")
 	public int cancelreservation(@RequestBody List<ReservationDTO> rto, HttpServletResponse response) throws IOException {
-		log.info("오긴하니..? " + rto);
 		// 좌석 다시 돌리기
 		//좌석 배열에서 삭제할 요소 찾아서 없애기..
 		int result = 0;

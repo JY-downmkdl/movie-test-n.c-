@@ -17,7 +17,7 @@
 	</resultMap>
 	<select id="read" resultMap="memberMap">
 		select
-		mem.userid, userpw, username, birth, phone, enabled, auth
+		mem.userid, userpw, username, to_char(birth,'YYYY/MM/DD') as birth, phone, enabled, auth
    	 	from member mem left outer join mem_auth auth on mem.userid = auth.userid
     	where mem.userid= #{userid}
 	</select>

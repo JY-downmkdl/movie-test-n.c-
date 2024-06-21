@@ -53,11 +53,11 @@
 							<td class="py-3">등급</td>
 							<td class="py-3">
 								<select id="movgrade" name="movgrade">
-				                   <option selected="" value="0">전체</option>
-				                   <option value="7">7세</option>
-				                   <option value="12">12세</option>
-				                   <option value="15">15세</option>
-				                   <option value="19">19세</option>
+				                   <option  value="0" <c:if test="${board.movgrade eq 0}"> selected="" </c:if>>전체</option>
+				                   <option value="7" <c:if test="${board.movgrade eq 7}"> selected="" </c:if>>7세</option>
+				                   <option value="12" <c:if test="${board.movgrade eq 12}"> selected="" </c:if>>12세</option>
+				                   <option value="15" <c:if test="${board.movgrade eq 15}"> selected="" </c:if>>15세</option>
+				                   <option value="19" <c:if test="${board.movgrade eq 19}"> selected="" </c:if>>19세</option>
 				               </select>
 							</td>
 						</tr>
@@ -75,9 +75,23 @@
 								<div class="uploadDiv">
 								 	<input type="file" name="movposter">
 								</div>
-								<div class="uploadResult">
-									<ul></ul>
-								</div>
+								<c:choose>
+									<c:when test="${not empty board}">
+										<div class="uploadResult">
+											<p data-path="poster" data-filename="${board.fileName}" data-fullname="${board.fullname}">
+												<img src="/display?fileName=poster%2Fs_${board.fileName}">
+												<button class="btn" data-file="poster%2Fs_${board.fileName}" data-type="image">
+													<p></p>
+												</button>
+											</p>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="uploadResult">
+											<ul></ul>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</td>
 						</tr>
 					</table>

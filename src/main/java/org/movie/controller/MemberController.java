@@ -131,6 +131,8 @@ public class MemberController {
 		model.addAttribute("info",mvservice.read(userid));
 		//유저가 예약한 영화 1개월 전까지만 검색
 		model.addAttribute("rvlist",rvservice.reserv(userid));
+		// 유저가 취소한 영화 7일 전까지만 검색하기
+//		model.addAttribute("delrvlist",rvservice.reserv(userid));
 	}
 	
 	//예매 취소 
@@ -180,6 +182,7 @@ public class MemberController {
 	@GetMapping("/myinfo")
 	public void userinfo(@RequestParam("userid")String userid, Model model) {
 		model.addAttribute("list",mvservice.read(userid));
+		log.info(mvservice.read(userid).getBirth());
 	}
 	
 	//회원정보 수정
